@@ -1,0 +1,15 @@
+.navList {
+    display: flex;
+}
+
+.navListItem a {
+    padding: 0.5rem;
+    color: #fff;
+    text-decoration: none;
+}
+
+.navListItem a:hover,
+.navListItem a:active,
+.navListItem a:focus {
+    background: rgba(255,255,255,.1);
+}

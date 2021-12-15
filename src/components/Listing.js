@@ -1,10 +1,20 @@
 import React from "react";
+import { useParams } from 'react-router-dom';
 
-const Listing = () => {
+import Container from '@mui/material/Container';
+
+const Listing = (props) => {
+    let { id } = useParams();
+    let currentListing = props.listings.find(listing => listing.id === Number(id));
+    console.log('Current Listing', currentListing);
+
     return (
-        <div>
-            Listing
-        </div>
+        <Container maxWidth="md" sx={{ my: '3rem' }}>
+            <h1>{currentListing.name}</h1>
+            <p>{currentListing.address}</p>
+            <p>{currentListing.hours}</p>
+            <p>{currentListing.description}</p>
+        </Container >
     );
 }
 

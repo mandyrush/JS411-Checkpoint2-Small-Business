@@ -1,10 +1,12 @@
 import React from "react";
 
+import Container from '@mui/material/Container';
+
 const ListingCreate = () => {
     return (
-        <div>
+        <Container maxWidth="lg" sx={{ my: '3rem' }}>
             Create Listing
-        </div>
+        </Container>
     );
 }
 

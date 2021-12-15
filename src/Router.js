@@ -1,8 +1,8 @@
 import React from "react";
 
 import { Routes, Route } from 'react-router-dom';
-import Listings from './components/Listings';
-import Listing from './components/Listing';
+import Listings from './containers/Listings';
+import Listing from './containers/Listing';
 import ListingCreate from './components/ListingCreate'
 import Login from './components/Login';
 

@@ -15,10 +15,8 @@ import Container from '@mui/material/Container';
 import Alert from '@mui/material/Alert';
 
 const Navigation = ({
-    isLoggedIn,
-    setIsLoggedIn,
-    username,
-    setUsername
+    user,
+    removeUser
 }) => {
     const navigate = useNavigate();
 
@@ -36,10 +34,12 @@ const Navigation = ({
         handleCloseNavMenu();
 
         document.cookie = `isLoggedIn=`;
-        document.cookie = "username=''";
+        document.cookie = "username=";
 
-        setIsLoggedIn(false);
-        setUsername('');
+        removeUser({
+            isLoggedIn: false,
+            username: null
+        });
 
         navigate('/');
     }
@@ -90,9 +90,9 @@ const Navigation = ({
                             }}
                         >
                             <MenuItem onClick={handleCloseNavMenu}><Link to="/" >Listings</Link></MenuItem>
-                            {isLoggedIn && <MenuItem onClick={handleCloseNavMenu}><Link to="/listing/create" >Add</Link></MenuItem>}
-                            {!isLoggedIn && <MenuItem onClick={handleCloseNavMenu}><Link to="/login" >Login</Link></MenuItem>}
-                            {isLoggedIn && <MenuItem onClick={handleLogout}><Link to="/logout" >Logout</Link></MenuItem>}
+                            {user.isLoggedIn && <MenuItem onClick={handleCloseNavMenu}><Link to="/listing/create" >Add</Link></MenuItem>}
+                            {!user.isLoggedIn && <MenuItem onClick={handleCloseNavMenu}><Link to="/login" >Login</Link></MenuItem>}
+                            {user.isLoggedIn && <MenuItem onClick={handleLogout}><Link to="/logout" >Logout</Link></MenuItem>}
                         </Menu>
                     </Box>
                     {/* Title - Mobile */}
@@ -108,14 +108,14 @@ const Navigation = ({
                     <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
                         <ul className={styles.navList}>
                             <li className={styles.navListItem}><Link to="/" >Listings</Link></li>
-                            {isLoggedIn && <li className={styles.navListItem}><Link to="/listing/create" >Add</Link></li>}
-                            {!isLoggedIn && <li className={styles.navListItem}><Link to="/login" >Login</Link></li>}
-                            {isLoggedIn && <li className={styles.navListItem} onClick={handleLogout}><Link to="/logout" >Logout</Link></li>}
+                            {user.isLoggedIn && <li className={styles.navListItem}><Link to="/listing/create" >Add</Link></li>}
+                            {!user.isLoggedIn && <li className={styles.navListItem}><Link to="/login" >Login</Link></li>}
+                            {user.isLoggedIn && <li className={styles.navListItem} onClick={handleLogout}><Link to="/logout" >Logout</Link></li>}
                         </ul>
                     </Box>
                 </Toolbar>
             </Container>
-            {isLoggedIn && <Alert icon={false} severity="info" sx={{ backgroundColor: '#ccc' }}>Logged in as {username}</Alert>}
+            {user.isLoggedIn && <Alert icon={false} severity="info" sx={{ backgroundColor: '#ccc' }}>Logged in as {user.username}</Alert>}
         </AppBar>
     );
 }

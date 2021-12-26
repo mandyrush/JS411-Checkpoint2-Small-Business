@@ -1,11 +1,13 @@
 import React from "react";
 import { useParams } from 'react-router-dom';
 
+import styles from './Listing.module.css';
+
 import Container from '@mui/material/Container';
 
-const Listing = (props) => {
+const Listing = ({ listings }) => {
     let { id } = useParams();
-    let currentListing = props.listings.find(listing => listing.id === Number(id));
+    let currentListing = listings.find(listing => listing.id === Number(id));
     console.log('Current Listing', currentListing);
 
     return (

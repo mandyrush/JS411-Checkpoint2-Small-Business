@@ -11,7 +11,11 @@ import TableRow from '@mui/material/TableRow';
 import Button from '@mui/material/Button';
 import DeleteIcon from '@mui/icons-material/Delete';
 
-const Listings = ({ listings, isLoggedIn, removeBusiness }) => {
+const Listings = ({
+    user,
+    listings,
+    removeBusiness
+}) => {
     return (
         <Container maxWidth="lg" sx={{ my: '3rem' }}>
             <TableContainer>
@@ -22,7 +26,7 @@ const Listings = ({ listings, isLoggedIn, removeBusiness }) => {
                             <TableCell>Description</TableCell>
                             <TableCell>Hours</TableCell>
                             <TableCell>Address</TableCell>
-                            {isLoggedIn && <TableCell>Delete</TableCell>}
+                            {user.isLoggedIn ? (<TableCell>Delete</TableCell>) : null}
                         </TableRow>
                     </TableHead>
                     <TableBody>
@@ -37,11 +41,11 @@ const Listings = ({ listings, isLoggedIn, removeBusiness }) => {
                                 <TableCell>{listing.description}</TableCell>
                                 <TableCell>{listing.hours}</TableCell>
                                 <TableCell>{listing.address}</TableCell>
-                                {isLoggedIn && <TableCell>
+                                {user.isLoggedIn ? (<TableCell>
                                     <Button onClick={() => removeBusiness(index)}>
                                         <DeleteIcon sx={{ color: 'red' }}></DeleteIcon>
                                     </Button>
-                                </TableCell>}
+                                </TableCell>) : null}
                             </TableRow>
                         ))}
                     </TableBody>

@@ -1,28 +1,28 @@
 import React from "react";
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import cookie from "cookie";
 
 import Container from '@mui/material/Container';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 
-const Login = ({
-    setIsLoggedIn,
-    username,
-    setUsername
-}) => {
+const Login = ({ addUser }) => {
+    const [user, setUser] = useState(null);
+
     const navigate = useNavigate();
 
     const handleChange = (event) => {
-        setUsername(event.target.value);
+        setUser(event.target.value);
     }
 
     const handleClick = () => {
-        document.cookie = `isLoggedIn=true;max-age=60*100;`;
-        document.cookie = `username=${username}`;
+        document.cookie = `isLoggedIn=true;max-age=60*100*5;`;
+        document.cookie = `username=${user}`;
 
-        const cookies = cookie.parse(document.cookie);
-        setIsLoggedIn(cookies['isLoggedIn']);
+        addUser({
+            isLoggedIn: true,
+            username: user
+        });
 
         navigate('/');
     }

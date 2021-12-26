@@ -1,5 +1,6 @@
 import { connect } from 'react-redux';
 import Listings from '../components/Listings';
+import { removeBusiness } from '../redux/action';
 
 const mapStateToProps = (state) => {
     return {
@@ -7,4 +8,10 @@ const mapStateToProps = (state) => {
     }
 }
 
-export default connect(mapStateToProps)(Listings);
+const mapDispatchToProps = (dispatch) => {
+    return {
+        removeBusiness: (index) => dispatch(removeBusiness(index))
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Listings);

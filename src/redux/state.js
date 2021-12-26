@@ -21,5 +21,5 @@ export default {
             'hours': '6am - 2pm',
             'address': '456 Street Billings, MT 59102'
         }
-    ]
+    ],
 };

@@ -8,12 +8,13 @@ import TableCell from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
-import Paper from '@mui/material/Paper';
+import Button from '@mui/material/Button';
+import DeleteIcon from '@mui/icons-material/Delete';
 
-const Listings = ({ listings }) => {
+const Listings = ({ listings, isLoggedIn, removeBusiness }) => {
     return (
         <Container maxWidth="lg" sx={{ my: '3rem' }}>
-            <TableContainer component={Paper}>
+            <TableContainer>
                 <Table sx={{ minWidth: 650 }} aria-label="simple table">
                     <TableHead>
                         <TableRow>
@@ -21,6 +22,7 @@ const Listings = ({ listings }) => {
                             <TableCell>Description</TableCell>
                             <TableCell>Hours</TableCell>
                             <TableCell>Address</TableCell>
+                            {isLoggedIn && <TableCell>Delete</TableCell>}
                         </TableRow>
                     </TableHead>
                     <TableBody>
@@ -35,6 +37,11 @@ const Listings = ({ listings }) => {
                                 <TableCell>{listing.description}</TableCell>
                                 <TableCell>{listing.hours}</TableCell>
                                 <TableCell>{listing.address}</TableCell>
+                                {isLoggedIn && <TableCell>
+                                    <Button onClick={() => removeBusiness(index)}>
+                                        <DeleteIcon sx={{ color: 'red' }}></DeleteIcon>
+                                    </Button>
+                                </TableCell>}
                             </TableRow>
                         ))}
                     </TableBody>

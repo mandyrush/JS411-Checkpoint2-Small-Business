@@ -11,8 +11,8 @@ const Listing = (props) => {
     return (
         <Container maxWidth="md" sx={{ my: '3rem' }}>
             <h1>{currentListing.name}</h1>
-            <p>{currentListing.address}</p>
-            <p>{currentListing.hours}</p>
+            <p><strong>{currentListing.address}</strong></p>
+            <p><strong>{currentListing.hours}</strong></p>
             <p>{currentListing.description}</p>
         </Container >
     );

@@ -1,6 +1,6 @@
 import React from "react";
 import { useState } from 'react';
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import styles from './Navigation.module.css';
 
 import AppBar from '@mui/material/AppBar';
@@ -12,8 +12,16 @@ import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import MenuIcon from '@mui/icons-material/Menu';
 import Container from '@mui/material/Container';
+import Alert from '@mui/material/Alert';
 
-const Navigation = () => {
+const Navigation = ({
+    isLoggedIn,
+    setIsLoggedIn,
+    username,
+    setUsername
+}) => {
+    const navigate = useNavigate();
+
     const [anchorElNav, setAnchorElNav] = useState(null);
 
     const handleOpenNavMenu = (event) => {
@@ -23,6 +31,18 @@ const Navigation = () => {
     const handleCloseNavMenu = () => {
         setAnchorElNav(null);
     };
+
+    const handleLogout = () => {
+        handleCloseNavMenu();
+
+        document.cookie = `isLoggedIn=`;
+        document.cookie = "username=''";
+
+        setIsLoggedIn(false);
+        setUsername('');
+
+        navigate('/');
+    }
 
     return (
         <AppBar position="static" sx={{ backgroundColor: '#3CB471' }}>
@@ -70,9 +90,9 @@ const Navigation = () => {
                             }}
                         >
                             <MenuItem onClick={handleCloseNavMenu}><Link to="/" >Listings</Link></MenuItem>
-                            <MenuItem onClick={handleCloseNavMenu}><Link to="/listing/create" >Add</Link></MenuItem>
-                            <MenuItem onClick={handleCloseNavMenu}><Link to="/login" >Login</Link></MenuItem>
-                            <MenuItem onClick={handleCloseNavMenu}><Link to="/logout" >Logout</Link></MenuItem>
+                            {isLoggedIn && <MenuItem onClick={handleCloseNavMenu}><Link to="/listing/create" >Add</Link></MenuItem>}
+                            {!isLoggedIn && <MenuItem onClick={handleCloseNavMenu}><Link to="/login" >Login</Link></MenuItem>}
+                            {isLoggedIn && <MenuItem onClick={handleLogout}><Link to="/logout" >Logout</Link></MenuItem>}
                         </Menu>
                     </Box>
                     {/* Title - Mobile */}
@@ -88,13 +108,14 @@ const Navigation = () => {
                     <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
                         <ul className={styles.navList}>
                             <li className={styles.navListItem}><Link to="/" >Listings</Link></li>
-                            <li className={styles.navListItem}><Link to="/listing/create" >Add</Link></li>
-                            <li className={styles.navListItem}><Link to="/login" >Login</Link></li>
-                            <li className={styles.navListItem}><Link to="/logout" >Logout</Link></li>
+                            {isLoggedIn && <li className={styles.navListItem}><Link to="/listing/create" >Add</Link></li>}
+                            {!isLoggedIn && <li className={styles.navListItem}><Link to="/login" >Login</Link></li>}
+                            {isLoggedIn && <li className={styles.navListItem} onClick={handleLogout}><Link to="/logout" >Logout</Link></li>}
                         </ul>
                     </Box>
                 </Toolbar>
             </Container>
+            {isLoggedIn && <Alert icon={false} severity="info" sx={{ backgroundColor: '#ccc' }}>Logged in as {username}</Alert>}
         </AppBar>
     );
 }

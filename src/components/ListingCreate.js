@@ -2,6 +2,8 @@ import React from "react";
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
+import Map from './Map';
+
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
 import TextField from '@mui/material/TextField';
@@ -88,7 +90,7 @@ const ListingCreate = ({ listings, addBusiness }) => {
                     </form>
                 </Grid>
                 <Grid item xs={12} md={6}>
-                    map
+                    <Map inputAddress={address} />
                 </Grid>
             </Grid>
         </Container>
